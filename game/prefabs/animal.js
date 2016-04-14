@@ -11,56 +11,11 @@ var Animal = function(game, x, y, frame, parents) {
 //		this.genePool = parents.genePool;
 		this.generation = parents.generation+1;
 	} else {
-		// Der Genpool beinhaltet die "Target"-Werte für die neuronalen Netzwerke und mutiert über die Generationen, initial random
-/*		this.genePool = {
-			movementGenes: [0,0,0,0],
-			intentionGenes: [0,0,0,0],
-			distanceGenes: [0,0,0,0,0]
-		} */
 		this.generation = 1;
 	}
 
-/*	var geneCount = 13,
-		mutationCount = Math.ceil(geneCount*0.2),
-		mutationPos = [],
-		that = this;
-
-	while (mutationPos.length < 3) {
-		var pos = game.rnd.integerInRange(0, geneCount);
-		if (_.indexOf(mutationPos, pos) == -1) {
-			mutationPos.push(pos);
-		}
-	}
-	console.log(mutationPos);
-
-	var geneIdxCnt = 0;
-		_.each(this.genePool, function(geneType) {
-			for (var i=0; i<geneType.length; i++) {
-				var rand = game.rnd.integerInRange(1,10);
-				if (rand <= 2) {
-					geneType[i] = Math.floor(Math.random(0,1)*100)/100;
-				}
-		//		if (mutationPos.indexOf(geneIdxCnt) != -1) {
-		//		}
-				geneIdxCnt++;
-			}
-		});
-	console.log(this.genePool);
-*/
-
-/*
-	if (this.generation == 1) {
-		_.each(this.genePool, function(geneType) {
-			for (var i=0; i<geneType.length; i++) {
-				geneType[i] = game.rnd.integerInRange(0,1);
-			}
-		});
-	} else {
-		// Mutate GenePool somewhere
-		
-	}
-*/
-
+	// Wenn keine Parents -> Netzwerke neu erstellen, ansonsten von Eltern erben
+	// Todo: Only partial inheritance
 	if (!parents) {
 		// Netzwerk zur Berechnung der Bewegung
 		this.movementNetwork 	= new synaptic.Architect.Perceptron(4, 6, 4);
@@ -383,6 +338,8 @@ Animal.prototype.think = function() {
 	// Replace with dynamic thingy
 	switch (intention) {
 		case 1: // Eat
+
+			// Hardcoded Type, need to be dynamic
 			var objectType = 'pizza';
 			this.find(objectType, function(target) {
 				that.move(target);
@@ -422,7 +379,6 @@ Animal.prototype.sleep = function() {}
 // "Finden"-Grundfunktion
 Animal.prototype.find = function(objectType, callback) {
 	// TODO: "Remember" wenn kurzzeitig nicht mehr in Sichtfeld ?
-	// distanceNetwork ? Combine with movementNetwork ?
 	var target = false,
 		distance = false,
 		that = this;
