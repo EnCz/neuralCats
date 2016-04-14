@@ -1,0 +1,19 @@
+{
+  "name": "Cz",
+  "version": "0.0.1",
+  "description": "catai service",
+  "engines": {
+    "arangodb": "^2.8.0"
+  },
+  "author": "En",
+  "license": "Apache 2",
+  "controllers": {
+    "/animal": "controllers/animal.js",
+    "/food": "controllers/food.js"
+  },
+  "scripts": {
+    "setup": "scripts/setup.js",
+    "teardown": "scripts/teardown.js"
+  },
+  "tests": "test/**/*.js"
+}
